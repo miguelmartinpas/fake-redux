@@ -1,24 +1,25 @@
 import React from 'react';
-import logo from './logo.svg';
+import { Container, Card, Divider } from '@adsmurai/design-system-react';
+import TodoHeader from './organisms/TodoHeader';
+import TodoForm from './organisms/TodoForm';
+import TaskList from './organisms/TaskList';
+import TodoSummary from './organisms/TodoSummary';
 import './App.css';
 
-function App() {
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="e-todo-app">
+        <Card variant="secondary">
+          <Container direction='column' align="center" padding="24px" width="800px" spacing="medium">  
+            <TodoHeader/>
+            <Divider/>
+            <TodoForm/>
+            <TaskList/>
+            <Divider/>
+            <TodoSummary/>
+        </Container>
+        </Card>
     </div>
   );
 }
