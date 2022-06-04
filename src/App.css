@@ -24,3 +24,35 @@
 .e-todo-app .e-board thead {
   display: none
 }
+
+@keyframes myAnimation{
+  0%{
+    opacity: 0;
+    transform: rotateX(90deg);
+  }
+  20%{
+    opacity: 0.2;
+    transform: rotateX(0deg);
+  }
+  40%{
+    opacity: 0.4;
+    transform: rotateX(0deg);
+  }
+  60%{
+    opacity: 0.6;
+    transform: rotateX(0deg);
+  }
+  80%{
+    opacity: 0.8;
+    transform: rotateX(0deg);
+  }
+  100%{
+    opacity: 1; 
+  }
+}
+
+.e-icon-button.--secondary {
+    animation-name: myAnimation;
+    animation-duration: 3000ms;
+    animation-fill-mode: forwards;
+}

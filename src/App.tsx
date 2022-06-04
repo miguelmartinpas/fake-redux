@@ -5,6 +5,7 @@ import TodoForm from './organisms/TodoForm';
 import TaskList from './organisms/TaskList';
 import TodoSummary from './organisms/TodoSummary';
 import './App.css';
+import TodoLoginInfo from './organisms/TodoLoginInfo';
 
 
 const App = () => {
@@ -18,6 +19,8 @@ const App = () => {
             <TaskList/>
             <Divider/>
             <TodoSummary/>
+            <Divider/>
+            <TodoLoginInfo />
         </Container>
         </Card>
     </div>
