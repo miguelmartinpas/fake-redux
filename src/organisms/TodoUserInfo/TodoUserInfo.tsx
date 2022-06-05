@@ -1,18 +1,16 @@
 import React from 'react';
 import { Container, Avatar, IconButton, Tooltip, Typography } from '@adsmurai/design-system-react';
 import { User } from '../../type/User';
-import { DEFAULT_AVATAR } from '../../consts';
+import { DEFAULT_NAME, DEFAULT_AVATAR } from '../../consts';
+import useAppStore from '../../hooks/useAppStore';
 
 const TodoUserInfo = (): React.ReactElement => {
-    console.log('TodoUserInfo');
+    const { store } = useAppStore();    
+    const { authentication } = store || {};
+    const { user } = authentication || {};
+    const { name = DEFAULT_NAME, avatar = DEFAULT_AVATAR } = user || {} as User;
 
-    const user: User | undefined = {
-        name: 'Batman',
-        avatar: 'https://cdn2.iconfinder.com/data/icons/super-hero/154/batman-comics-hero-avatar-head-mask-512.png',
-    }
-    // const user: User | undefined = undefined;
-
-    const { name = 'Unknown', avatar = DEFAULT_AVATAR } = user || {} as User;
+    console.log('TodoUserInfo', store);
 
     return (
         <Container verticalAlign="vertical-center" align="start" width="100%" >
