@@ -5,7 +5,7 @@ import useAppStore from '../../hooks/useAppStore';
 import { DEFAULT_FILTER } from '../../consts';
 
 const TodoForm = (): React.ReactElement => {
-    const { store } = useAppStore();    
+    const { store, dispatch } = useAppStore();    
     const { todo } = store || {};
     const { filter = DEFAULT_FILTER } = todo || {};
     
@@ -15,11 +15,14 @@ const TodoForm = (): React.ReactElement => {
 
     const onSubmit = () => {
         console.log('TodoForm > submit', taskText);
+        dispatch({ type: 'ADD_TASK', payload: taskText });
         setTaskText('');
     }
 
     const onHandleFilter = (value: OptionsType<OptionTypeBase>, action: ActionMeta<OptionTypeBase>) => {
         console.log('TodoForm > filter', value);
+        // @ts-ignore
+        dispatch({ type: 'SET_FILTER', payload: value.value });
     }
 
     const getOptions = () => [{ value: 'all', label: 'All'}, { value: 'done', label: 'Done'}, { value: 'pending', label: "Pending"}];
