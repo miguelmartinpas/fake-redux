@@ -18,14 +18,14 @@ const TodoLoginInfo = (): React.ReactElement => {
     //     lastLogin: new Date().toISOString()
     // }
 
-    return (
+    return React.useMemo(() => (
         <Container className="e-todo-form" verticalAlign="vertical-center" align="start" width="100%" spacing="small">
             <Typography variant="body2"><>Last login: {lastLogin}</></Typography>
             <Tooltip title={new Date().toLocaleString()} position="right">
                 <IconButton small>info</IconButton>
             </Tooltip>
         </Container>
-    );
+    ), [ lastLogin ]);
 }
 
 export default TodoLoginInfo;

@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { Container, InputField, Select, IconButton, Tooltip } from '@adsmurai/design-system-react';
 import { OptionsType, OptionTypeBase, ActionMeta } from 'react-select';
-import useAppStore from '../../hooks/useAppStore';
+import useTodoStore from '../../hooks/useTodoStore';
 import { DEFAULT_FILTER } from '../../consts';
 
 const TodoForm = (): React.ReactElement => {
-    const { store, dispatch } = useAppStore();    
-    const { todo } = store || {};
-    const { filter = DEFAULT_FILTER } = todo || {};
+    const { store, dispatch } = useTodoStore();
+    const { filter = DEFAULT_FILTER } = store || {};
     
     console.log('TodoForm', store);
     

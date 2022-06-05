@@ -4,5 +4,8 @@ import { AppStore } from "./AppStore";
 
 export interface AppStoreProvider {
     store: AppStore;
-    dispatch: Dispatch<Action>;
+    dispatch:{
+        authenticate: Dispatch<Action>
+        todo: Dispatch<Action>
+    };
 }
