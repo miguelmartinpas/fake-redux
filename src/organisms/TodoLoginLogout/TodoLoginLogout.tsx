@@ -1,15 +1,14 @@
 import React from 'react';
 import { Container, IconButton, Tooltip } from '@adsmurai/design-system-react';
 import { User } from '../../type/User';
+import useAppStore from '../../hooks/useAppStore';
 
 const TodoLoginLogout = (): React.ReactElement => {
-    console.log('TodoLoginLogout');
+    const { store } = useAppStore();    
+    const { authentication } = store || {};
+    const { user } = authentication || {};
 
-    const user: User | undefined = {
-        name: 'Batman',
-        avatar: 'https://cdn2.iconfinder.com/data/icons/super-hero/154/batman-comics-hero-avatar-head-mask-512.png',
-    }
-    // const user: User | undefined = undefined;
+    console.log('TodoLoginLogout', store);
 
     return (
         <Container verticalAlign="vertical-center" align="end" width="100%" >
