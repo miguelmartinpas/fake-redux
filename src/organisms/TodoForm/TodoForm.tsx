@@ -5,21 +5,22 @@ import useAppStore from '../../hooks/useAppStore';
 import { DEFAULT_FILTER } from '../../consts';
 
 const TodoForm = (): React.ReactElement => {
-    const { store } = useAppStore();    
+    const { store, setStore } = useAppStore();    
     const { todo } = store || {};
     const { filter = DEFAULT_FILTER } = todo || {};
-    
+
     console.log('TodoForm', store);
     
     const [taskText, setTaskText] = useState<string>('');
 
     const onSubmit = () => {
-        console.log('TodoForm > submit', taskText);
+        setStore({ ...store, todo: { ...todo, tasks: [...todo.tasks, { task: taskText, done: false }] } });
         setTaskText('');
     }
 
     const onHandleFilter = (value: OptionsType<OptionTypeBase>, action: ActionMeta<OptionTypeBase>) => {
-        console.log('TodoForm > filter', value);
+        // @ts-ignore
+        setStore({ ...store, todo: { ...todo, filter: value.value } });
     }
 
     const getOptions = () => [{ value: 'all', label: 'All'}, { value: 'done', label: 'Done'}, { value: 'pending', label: "Pending"}];
