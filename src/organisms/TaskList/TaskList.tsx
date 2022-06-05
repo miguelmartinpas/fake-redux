@@ -10,11 +10,9 @@ const columns = [
     { 
         accessor: 'task',
         Cell: (currentRow: any) => {
-            console.log(currentRow);
             const { value, row } = currentRow;
             const { original } = row;
             const { done } = original;
-            console.log('value', value)
             return <Container verticalAlign="vertical-center" align="start">
                        {done ?  <del>{value}</del> : value}
                     </Container>
@@ -26,7 +24,6 @@ const columns = [
             const { value, row } = currentRow;
             const { original } = row;
             const { task, done } = original;
-            console.log('value', value)
             return <Container key={task} verticalAlign="vertical-center" align="end">
                         <Switch value={value} disabled={done} onChange={(value) => console.log('change value', task, value)}/>
                     </Container>
