@@ -12,6 +12,10 @@ export interface GlobalState {
 }
 
 export interface AppStore {
-    authentication: Authentication,
     todo: Todo;
+}
+
+
+export interface AuthStore {
+    authentication: Authentication,
 }

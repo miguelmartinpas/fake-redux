@@ -1,11 +1,11 @@
 import { Dispatch, useContext } from 'react';
-import AppContextStore from '../../contexts/AppContextStore';
+import AuthContextStore from '../../contexts/AuthContextStore';
 import { Action } from '../../type/Action';
-import { AppStoreProvider } from '../../type/AppStoreProvider';
+import { AuthStoreProvider } from '../../type/AuthStoreProvider';
 import { Authentication } from '../../type/Authentication';
 
 const useAuthenticationStore = (): { store: Authentication, dispatch: Dispatch<Action> }  => {
-    const { store: { authentication }, dispatch: { authenticate: dispatchAuthenticate } } = useContext<AppStoreProvider>(AppContextStore);
+    const { store: { authentication }, dispatch: dispatchAuthenticate } = useContext<AuthStoreProvider>(AuthContextStore);
 
     return { store: authentication, dispatch: dispatchAuthenticate };
 }

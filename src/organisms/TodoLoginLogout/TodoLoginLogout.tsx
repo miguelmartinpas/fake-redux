@@ -1,14 +1,20 @@
 import React from 'react';
 import { Container, IconButton, Tooltip } from '@adsmurai/design-system-react';
-import { User } from '../../type/User';
-import useAppStore from '../../hooks/useAppStore';
+import useAuthStore from '../../hooks/useAuthStore';
 
 const TodoLoginLogout = (): React.ReactElement => {
-    const { store } = useAppStore();    
-    const { authentication } = store || {};
+    const { store: authentication, dispatch } = useAuthStore();    
     const { user } = authentication || {};
 
-    console.log('TodoLoginLogout', store);
+    console.log('TodoLoginLogout', authentication);
+
+    const handleLoginLogout = () => {
+        if (user) {
+            dispatch({ type: 'SIGN_OUT' });
+        } else {
+            dispatch({ type: 'SIGN_IN' });
+        }
+    }
 
     return (
         <Container verticalAlign="vertical-center" align="end" width="100%" >
@@ -16,7 +22,7 @@ const TodoLoginLogout = (): React.ReactElement => {
                 <IconButton small>info</IconButton>
             </Tooltip>
             <Tooltip title={user ? 'Sing Out' : 'Sign In'}>
-                <IconButton variant='primary' >{!!user ? 'logout' : 'login'}</IconButton>
+                <IconButton variant='primary' onClick={handleLoginLogout}>{!!user ? 'logout' : 'login'}</IconButton>
             </Tooltip>
         </Container>
     );
