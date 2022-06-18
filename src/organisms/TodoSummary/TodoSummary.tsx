@@ -2,10 +2,11 @@ import React from 'react';
 import { Container, IconButton, Tooltip, Typography } from '@adsmurai/design-system-react';
 import { useAppSelector } from '../../store/hooks';
 import { Task } from '../../type/Todo';
+import { RootState } from '../../store/store';
 
 
 const TodoSummary = (): React.ReactElement => {
-    const tasks = useAppSelector((state: any) => state.todo.tasks);
+    const tasks = useAppSelector((state: RootState) => state.todo.tasks);
 
     const pendingTask = tasks.filter((task: Task) => !task.done).length;
     
