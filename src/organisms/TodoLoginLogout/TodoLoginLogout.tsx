@@ -1,15 +1,21 @@
 import React from 'react';
 import { Container, IconButton, Tooltip } from '@adsmurai/design-system-react';
-import { User } from '../../type/User';
+import { useAppSelector, useAppDispatch } from '../../store/hooks';
+import { signIn, signOut } from '../../store/slices/auth';
 
 const TodoLoginLogout = (): React.ReactElement => {
-    console.log('TodoLoginLogout');
+    const user = useAppSelector((state: any) => state.auth.user);
+    const dispatch = useAppDispatch()
 
-    const user: User | undefined = {
-        name: 'Batman',
-        avatar: 'https://cdn2.iconfinder.com/data/icons/super-hero/154/batman-comics-hero-avatar-head-mask-512.png',
+    console.log('TodoLoginLogout', user);
+
+    const handleSingInSingOut = (): void => {
+        if (user) {
+            dispatch(signOut());
+        } else {
+            dispatch(signIn());
+        }
     }
-    // const user: User | undefined = undefined;
 
     return (
         <Container verticalAlign="vertical-center" align="end" width="100%" >
@@ -17,7 +23,7 @@ const TodoLoginLogout = (): React.ReactElement => {
                 <IconButton small>info</IconButton>
             </Tooltip>
             <Tooltip title={user ? 'Sing Out' : 'Sign In'}>
-                <IconButton variant='primary' >{!!user ? 'logout' : 'login'}</IconButton>
+                <IconButton onClick={handleSingInSingOut} variant='primary' >{!!user ? 'logout' : 'login'}</IconButton>
             </Tooltip>
         </Container>
     );

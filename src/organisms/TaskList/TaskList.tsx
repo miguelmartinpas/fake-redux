@@ -1,12 +1,10 @@
 import React from 'react';
 import { Container, IconButton, Tooltip, Typography, Table, Switch } from '@adsmurai/design-system-react';
+import { DEFAULT_FILTER, DONE_FILTER } from '../../consts';
+import { Task } from '../../type/Todo';
+import { useAppSelector } from '../../store/hooks';
 
-interface Task {
-    task: string;
-    done: boolean;
-}
-
-const columns = [
+const columns = (logged = false) => [
     { 
         accessor: 'task',
         Cell: (currentRow: any) => {
@@ -24,33 +22,31 @@ const columns = [
             const { value, row } = currentRow;
             const { original } = row;
             const { task, done } = original;
-            return <Container key={task} verticalAlign="vertical-center" align="end">
+            return logged ? <Container key={task} verticalAlign="vertical-center" align="end">
                         <Switch value={value} disabled={done} onChange={(value) => console.log('change value', task, value)}/>
-                    </Container>
+                    </Container> : <></>
         }
     }
 ]
 
 const TaskList = (): React.ReactElement => {
-    console.log('TaskList');
 
-    const tasks: Task[] = [
-        {
-            task: 'foooo fd of odfo sof os fosd', 
-            done: false
-        },{
-            task: 'foooo fd of odfo sof os fosd', 
-            done: true
-        }];
+    const tasks = useAppSelector((state: any) => state.todo.tasks);
+    const filter = useAppSelector((state: any) => state.todo.filter);
 
-    // const tasks: Task[] = [];
+    const user = null;
+
+    const filterTask = filter !== DEFAULT_FILTER ? tasks.filter((task: Task) => task.done === (filter === DONE_FILTER)) : tasks;
+
+
+    console.log('TaskList', tasks, filter);
 
     const renderListView = (): React.ReactElement => {
         return tasks.length? 
             <Table 
             rowSize="Medium"
-                columns={columns}
-                data={tasks}
+                columns={columns(!!user)}
+                data={filterTask}
             /> 
             : 
             <Container className="e-todo-form" verticalAlign="vertical-center" align="center" width="100%" spacing="small">
@@ -58,12 +54,11 @@ const TaskList = (): React.ReactElement => {
             </Container>;
     }
     
-
     return (
         <Container direction="column" className="e-todo-form" verticalAlign="vertical-center" align="start" width="100%" spacing="small">
             {renderListView()}
             <Container className="e-todo-form" verticalAlign="vertical-center" align="end" width="100%" spacing="small">
-                <Typography variant="body2">X tasks</Typography>
+                <Typography variant="body2"><>{tasks.length} tasks</></Typography>
                 <Tooltip title={new Date().toLocaleString()} position="right">
                     <IconButton small>info</IconButton>
                 </Tooltip>
