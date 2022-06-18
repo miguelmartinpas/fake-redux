@@ -6,9 +6,13 @@ export interface Task {
     done: boolean;
 }
 
-export interface GlobalState {
+export interface TodoState {
     tasks: Task[];
     filter: string;
+}
+
+export interface UserState {
+    user: User | null;
 }
 
 export interface AppStore {

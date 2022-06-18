@@ -1,25 +1,28 @@
 import React, { useState } from 'react';
 import { Container, InputField, Select, IconButton, Tooltip } from '@adsmurai/design-system-react';
 import { OptionsType, OptionTypeBase, ActionMeta } from 'react-select';
-import useAppStore from '../../hooks/useAppStore';
 import { DEFAULT_FILTER } from '../../consts';
+import { useAppSelector, useAppDispatch } from '../../store/hooks';
+import { addTask, updateFilter } from '../../store/slices/todo';
 
-const TodoForm = (): React.ReactElement => {
-    const { store } = useAppStore();    
-    const { todo } = store || {};
-    const { filter = DEFAULT_FILTER } = todo || {};
+const TodoForm = (): React.ReactElement => {   
+    const dispatch = useAppDispatch()
+    const filter = useAppSelector((state: any) => state.todo.filter);
     
-    console.log('TodoForm', store);
+    console.log('TodoForm', filter);
     
     const [taskText, setTaskText] = useState<string>('');
 
     const onSubmit = () => {
         console.log('TodoForm > submit', taskText);
+        dispatch(addTask(taskText));
         setTaskText('');
     }
 
     const onHandleFilter = (value: OptionsType<OptionTypeBase>, action: ActionMeta<OptionTypeBase>) => {
         console.log('TodoForm > filter', value);
+        // @ts-ignore
+        dispatch(updateFilter(value.value));
     }
 
     const getOptions = () => [{ value: 'all', label: 'All'}, { value: 'done', label: 'Done'}, { value: 'pending', label: "Pending"}];

@@ -6,11 +6,12 @@ import TaskList from './organisms/TaskList';
 import TodoSummary from './organisms/TodoSummary';
 import './App.css';
 import TodoLoginInfo from './organisms/TodoLoginInfo';
-import WithAppContextStore from './higherOrder/WithAppContextStore';
+import { store } from './store/store'
+import { Provider } from 'react-redux'
 
 const App = () => {
   return (
-    <WithAppContextStore>
+    <Provider store={ store }>
       <div className="e-todo-app">
           <Card variant="secondary">
             <Container direction='column' align="center" padding="24px" width="800px" spacing="medium">  
@@ -25,7 +26,7 @@ const App = () => {
           </Container>
           </Card>
       </div>
-    </WithAppContextStore>
+    </Provider>
   );
 }
 

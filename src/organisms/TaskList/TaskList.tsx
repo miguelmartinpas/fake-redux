@@ -1,7 +1,8 @@
 import React from 'react';
 import { Container, IconButton, Tooltip, Typography, Table, Switch } from '@adsmurai/design-system-react';
-import useAppStore from '../../hooks/useAppStore';
 import { DEFAULT_FILTER, DONE_FILTER } from '../../consts';
+import { Task } from '../../type/Todo';
+import { useAppSelector } from '../../store/hooks';
 
 const columns = (logged = false) => [
     { 
@@ -29,14 +30,16 @@ const columns = (logged = false) => [
 ]
 
 const TaskList = (): React.ReactElement => {
-    const { store } = useAppStore();    
-    const { todo, authentication } = store || {};
-    const { user } = authentication || {};
-    const { tasks, filter = DEFAULT_FILTER } = todo || {};
-    
-    const filterTask = filter !== DEFAULT_FILTER ? tasks.filter(task => task.done === (filter === DONE_FILTER)) : tasks;
 
-    console.log('TaskList', store);
+    const tasks = useAppSelector((state: any) => state.todo.tasks);
+    const filter = useAppSelector((state: any) => state.todo.filter);
+
+    const user = null;
+
+    const filterTask = filter !== DEFAULT_FILTER ? tasks.filter((task: Task) => task.done === (filter === DONE_FILTER)) : tasks;
+
+
+    console.log('TaskList', tasks, filter);
 
     const renderListView = (): React.ReactElement => {
         return tasks.length? 

@@ -2,15 +2,13 @@ import React from 'react';
 import { Container, Avatar, IconButton, Tooltip, Typography } from '@adsmurai/design-system-react';
 import { User } from '../../type/User';
 import { DEFAULT_NAME, DEFAULT_AVATAR } from '../../consts';
-import useAppStore from '../../hooks/useAppStore';
+import { useAppSelector } from '../../store/hooks';
 
 const TodoUserInfo = (): React.ReactElement => {
-    const { store } = useAppStore();    
-    const { authentication } = store || {};
-    const { user } = authentication || {};
+    const user = useAppSelector((state: any) => state.auth.user);
     const { name = DEFAULT_NAME, avatar = DEFAULT_AVATAR } = user || {} as User;
 
-    console.log('TodoUserInfo', store);
+    console.log('TodoUserInfo', user);
 
     return (
         <Container verticalAlign="vertical-center" align="start" width="100%" >

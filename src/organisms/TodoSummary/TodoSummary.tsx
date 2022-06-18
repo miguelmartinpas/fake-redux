@@ -1,14 +1,13 @@
 import React from 'react';
 import { Container, IconButton, Tooltip, Typography } from '@adsmurai/design-system-react';
-import useAppStore from '../../hooks/useAppStore';
+import { useAppSelector } from '../../store/hooks';
+import { Task } from '../../type/Todo';
 
 
 const TodoSummary = (): React.ReactElement => {
-    const { store } = useAppStore();    
-    const { todo } = store || {};
-    const { tasks = [] } = todo || {};
+    const tasks = useAppSelector((state: any) => state.todo.tasks);
 
-    const pendingTask = tasks.filter(task => !task.done).length;
+    const pendingTask = tasks.filter((task: Task) => !task.done).length;
     
     console.log('TodoSummary');
 

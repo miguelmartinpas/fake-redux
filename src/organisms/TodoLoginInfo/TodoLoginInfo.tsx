@@ -1,16 +1,14 @@
 import React from 'react';
 import { Container, IconButton, Tooltip, Typography } from '@adsmurai/design-system-react';
 import { User } from '../../type/User';
-import useAppStore from '../../hooks/useAppStore';
+import { useAppSelector } from '../../store/hooks';
 
 
 const TodoLoginInfo = (): React.ReactElement => {
-    const { store } = useAppStore();    
-    const { authentication } = store || {};
-    const { user } = authentication || {};
+    const user = useAppSelector((state: any) => state.auth.user);
     const { lastLogin = '-' } = user || {} as User;
 
-    console.log('TodoLoginInfo', store);
+    console.log('TodoLoginInfo', user);
 
     // const user: User | undefined = {
     //     name: 'Batman',
