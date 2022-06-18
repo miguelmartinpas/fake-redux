@@ -7,25 +7,28 @@ import TodoSummary from './organisms/TodoSummary';
 import './App.css';
 import TodoLoginInfo from './organisms/TodoLoginInfo';
 import WithAppContextStore from './higherOrder/WithAppContextStore';
+import WithAuthContextStore from './higherOrder/WithAuthContextStore';
 
 const App = () => {
   return (
-    <WithAppContextStore>
-      <div className="e-todo-app">
-          <Card variant="secondary">
-            <Container direction='column' align="center" padding="24px" width="800px" spacing="medium">  
-              <TodoHeader/>
-              <Divider/>
-              <TodoForm/>
-              <TaskList/>
-              <Divider/>
-              <TodoSummary/>
-              <Divider/>
-              <TodoLoginInfo />
-          </Container>
-          </Card>
-      </div>
-    </WithAppContextStore>
+    <WithAuthContextStore>
+      <WithAppContextStore>
+        <div className="e-todo-app">
+            <Card variant="secondary">
+              <Container direction='column' align="center" padding="24px" width="800px" spacing="medium">  
+                <TodoHeader/>
+                <Divider/>
+                <TodoForm/>
+                <TaskList/>
+                <Divider/>
+                <TodoSummary/>
+                <Divider/>
+                <TodoLoginInfo />
+            </Container>
+            </Card>
+        </div>
+      </WithAppContextStore>
+    </WithAuthContextStore>
   );
 }
 

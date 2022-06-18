@@ -1,5 +1,5 @@
-import { User } from "./User";
 import { Todo } from "./Todo";
+import { Authentication } from "./Authentication";
 
 export interface Task {
     task: string;
@@ -12,8 +12,10 @@ export interface GlobalState {
 }
 
 export interface AppStore {
-    authentication: {
-        user: User | null;
-    },
     todo: Todo;
+}
+
+
+export interface AuthStore {
+    authentication: Authentication,
 }

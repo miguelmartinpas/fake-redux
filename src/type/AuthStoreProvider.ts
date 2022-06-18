@@ -1,8 +1,9 @@
 import { Dispatch } from "react";
 import { Action } from "./Action";
-import { AppStore } from "./AppStore";
+import { AuthStore } from "./AppStore";
 
-export interface AppStoreProvider {
-    store: AppStore;
+
+export interface AuthStoreProvider {
+    store: AuthStore;
     dispatch: Dispatch<Action>
 }

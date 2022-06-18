@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { Container, InputField, Select, IconButton, Tooltip } from '@adsmurai/design-system-react';
 import { OptionsType, OptionTypeBase, ActionMeta } from 'react-select';
-import useAppStore from '../../hooks/useAppStore';
+import useTodoStore from '../../hooks/useTodoStore';
 import { DEFAULT_FILTER } from '../../consts';
 
 const TodoForm = (): React.ReactElement => {
-    const { store } = useAppStore();    
-    const { todo } = store || {};
-    const { filter = DEFAULT_FILTER } = todo || {};
+    const { store, dispatch } = useTodoStore();
+    const { filter = DEFAULT_FILTER } = store || {};
     
     console.log('TodoForm', store);
     
@@ -15,11 +14,14 @@ const TodoForm = (): React.ReactElement => {
 
     const onSubmit = () => {
         console.log('TodoForm > submit', taskText);
+        dispatch({ type: 'ADD_TASK', payload: taskText });
         setTaskText('');
     }
 
     const onHandleFilter = (value: OptionsType<OptionTypeBase>, action: ActionMeta<OptionTypeBase>) => {
         console.log('TodoForm > filter', value);
+        // @ts-ignore
+        dispatch({ type: 'SET_FILTER', payload: value.value });
     }
 
     const getOptions = () => [{ value: 'all', label: 'All'}, { value: 'done', label: 'Done'}, { value: 'pending', label: "Pending"}];

@@ -1,29 +1,54 @@
 import React from 'react';
 import { AppContextStoreProvider } from '../../contexts/AppContextStore';
-import { getTasks, getUser } from '../../mocks/mocks';
-import { AppStoreProvider } from '../../type/AppStoreProvider';
+import { getTasks } from '../../mocks/mocks';
+import { AppStore } from '../../type/AppStore';
+import { Action } from "../../type/Action";
+import { Todo } from '../../type/Todo';
 
 interface WithAppContextStoreProps {
     children: React.ReactElement
 } 
 
-const WithAppContextStore = ({ children }: WithAppContextStoreProps): React.ReactElement => {
-    const logged = true;
-    const withTasks = true;
+const todoReducer = (store: Todo, action: Action): Todo => {
+    const { type, payload } = action;
 
-    const initStore: AppStoreProvider = {
-        store: {
-            authentication: {
-                user: getUser(logged),
-            },
-            todo: {
-                tasks: getTasks(withTasks),
-                filter: 'all' // 'done' | 'all' | 'pending'
+    console.log('reducer!!!', type, payload, store);
+    switch(type){
+        case 'ADD_TASK':
+            return {
+                ...store, tasks: [...store.tasks, { task: payload as string, done: false }] 
+            };
+        case 'SET_FILTER':
+            return {
+                ...store,
+               filter: payload as string
             }
+        default:
+            throw new Error(`Action type ${type} is not supported`);
+    }
+}
+
+const WithAppContextStore = ({ children }: WithAppContextStoreProps): React.ReactElement => {
+    const withTasks = false;
+    
+    const initStore: AppStore = {
+        todo: {
+            tasks: getTasks(withTasks),
+            filter: 'all' // 'done' | 'all' | 'pending'
         }
     };
+
+    const [ todo, dispatchTodo ] = React.useReducer(todoReducer, initStore.todo);
+
+    const value = { 
+        store: { 
+            todo 
+        }, 
+        dispatch: dispatchTodo 
+
+    };
       
-    return <AppContextStoreProvider value={initStore}>{children}</AppContextStoreProvider>;
+    return <AppContextStoreProvider value={value}>{children}</AppContextStoreProvider>;
 
 }
 
