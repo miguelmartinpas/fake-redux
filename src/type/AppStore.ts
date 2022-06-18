@@ -1,10 +1,5 @@
 import { User } from "./User";
-import { Todo } from "./Todo";
-
-export interface Task {
-    task: string;
-    done: boolean;
-}
+import { Task } from "./Todo";
 
 export interface TodoState {
     tasks: Task[];
@@ -13,11 +8,4 @@ export interface TodoState {
 
 export interface UserState {
     user: User | null;
-}
-
-export interface AppStore {
-    authentication: {
-        user: User | null;
-    },
-    todo: Todo;
 }
