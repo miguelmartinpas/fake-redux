@@ -1,10 +1,11 @@
 import React from 'react';
 import { Container, IconButton, Tooltip } from '@adsmurai/design-system-react';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
-import { signIn, signOut } from '../../store/slices/auth';
+import { signIn, signOut, logIn } from '../../store/slices/auth';
+import { RootState } from '../../store/store';
 
 const TodoLoginLogout = (): React.ReactElement => {
-    const user = useAppSelector((state: any) => state.auth.user);
+    const user = useAppSelector((state: RootState) => state.auth.user);
     const dispatch = useAppDispatch()
 
     console.log('TodoLoginLogout', user);
@@ -13,7 +14,8 @@ const TodoLoginLogout = (): React.ReactElement => {
         if (user) {
             dispatch(signOut());
         } else {
-            dispatch(signIn());
+            dispatch(logIn());
+            // dispatch(signIn());
         }
     }
 

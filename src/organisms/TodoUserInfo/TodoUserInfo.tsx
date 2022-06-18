@@ -3,9 +3,10 @@ import { Container, Avatar, IconButton, Tooltip, Typography } from '@adsmurai/de
 import { User } from '../../type/User';
 import { DEFAULT_NAME, DEFAULT_AVATAR } from '../../consts';
 import { useAppSelector } from '../../store/hooks';
+import { RootState } from '../../store/store';
 
 const TodoUserInfo = (): React.ReactElement => {
-    const user = useAppSelector((state: any) => state.auth.user);
+    const user = useAppSelector((state: RootState) => state.auth.user);
     const { name = DEFAULT_NAME, avatar = DEFAULT_AVATAR } = user || {} as User;
 
     console.log('TodoUserInfo', user);

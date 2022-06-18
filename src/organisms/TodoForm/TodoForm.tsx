@@ -4,10 +4,11 @@ import { OptionsType, OptionTypeBase, ActionMeta } from 'react-select';
 import { DEFAULT_FILTER } from '../../consts';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { addTask, updateFilter } from '../../store/slices/todo';
+import { RootState } from '../../store/store';
 
 const TodoForm = (): React.ReactElement => {   
     const dispatch = useAppDispatch()
-    const filter = useAppSelector((state: any) => state.todo.filter);
+    const filter = useAppSelector((state: RootState) => state.todo.filter);
     
     console.log('TodoForm', filter);
     

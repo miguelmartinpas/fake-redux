@@ -3,6 +3,7 @@ import { Container, IconButton, Tooltip, Typography, Table, Switch } from '@adsm
 import { DEFAULT_FILTER, DONE_FILTER } from '../../consts';
 import { Task } from '../../type/Todo';
 import { useAppSelector } from '../../store/hooks';
+import { RootState } from '../../store/store';
 
 const columns = (logged = false) => [
     { 
@@ -31,8 +32,8 @@ const columns = (logged = false) => [
 
 const TaskList = (): React.ReactElement => {
 
-    const tasks = useAppSelector((state: any) => state.todo.tasks);
-    const filter = useAppSelector((state: any) => state.todo.filter);
+    const tasks = useAppSelector((state: RootState) => state.todo.tasks);
+    const filter = useAppSelector((state: RootState) => state.todo.filter);
 
     const user = null;
 
